@@ -1,0 +1,199 @@
+{
+  "vehicles": [
+    {
+      "vehicle_id": "V101",
+      "driver_name": "Rajesh Kumar",
+      "latitude": 28.6139,
+      "longitude": 77.2090,
+      "fuel_level": 85,
+      "status": "available",
+      "vehicle_type": "truck",
+      "location_name": "Connaught Place, New Delhi",
+      "capacity_tons": 5.0,
+      "mileage_kmpl": 12,
+      "last_service_date": "2024-03-15",
+      "contact": "+91-9876543201"
+    },
+    {
+      "vehicle_id": "V102",
+      "driver_name": "Amit Sharma",
+      "latitude": 28.5355,
+      "longitude": 77.3910,
+      "fuel_level": 60,
+      "status": "available",
+      "vehicle_type": "van",
+      "location_name": "Noida Sector 18",
+      "capacity_tons": 2.5,
+      "mileage_kmpl": 15,
+      "last_service_date": "2024-02-20",
+      "contact": "+91-9876543202"
+    },
+    {
+      "vehicle_id": "V103",
+      "driver_name": "Suresh Yadav",
+      "latitude": 28.4595,
+      "longitude": 77.0266,
+      "fuel_level": 45,
+      "status": "on_delivery",
+      "vehicle_type": "truck",
+      "location_name": "Gurugram Sector 29",
+      "capacity_tons": 8.0,
+      "mileage_kmpl": 10,
+      "last_service_date": "2024-01-10",
+      "contact": "+91-9876543203"
+    },
+    {
+      "vehicle_id": "V104",
+      "driver_name": "Priya Singh",
+      "latitude": 28.6692,
+      "longitude": 77.4538,
+      "fuel_level": 92,
+      "status": "available",
+      "vehicle_type": "mini_truck",
+      "location_name": "Ghaziabad Vaishali",
+      "capacity_tons": 3.0,
+      "mileage_kmpl": 14,
+      "last_service_date": "2024-03-28",
+      "contact": "+91-9876543204"
+    },
+    {
+      "vehicle_id": "V105",
+      "driver_name": "Mohan Lal",
+      "latitude": 28.7041,
+      "longitude": 77.1025,
+      "fuel_level": 30,
+      "status": "maintenance",
+      "vehicle_type": "van",
+      "location_name": "Rohini, New Delhi",
+      "capacity_tons": 2.0,
+      "mileage_kmpl": 16,
+      "last_service_date": "2024-03-05",
+      "contact": "+91-9876543205"
+    },
+    {
+      "vehicle_id": "V106",
+      "driver_name": "Deepak Verma",
+      "latitude": 28.6508,
+      "longitude": 77.2373,
+      "fuel_level": 78,
+      "status": "available",
+      "vehicle_type": "truck",
+      "location_name": "Karol Bagh, New Delhi",
+      "capacity_tons": 6.0,
+      "mileage_kmpl": 11,
+      "last_service_date": "2024-03-20",
+      "contact": "+91-9876543206"
+    },
+    {
+      "vehicle_id": "V107",
+      "driver_name": "Anita Gupta",
+      "latitude": 28.5821,
+      "longitude": 77.3228,
+      "fuel_level": 55,
+      "status": "available",
+      "vehicle_type": "mini_truck",
+      "location_name": "Noida Sector 62",
+      "capacity_tons": 2.8,
+      "mileage_kmpl": 13,
+      "last_service_date": "2024-02-14",
+      "contact": "+91-9876543207"
+    },
+    {
+      "vehicle_id": "V108",
+      "driver_name": "Ravi Patel",
+      "latitude": 28.4089,
+      "longitude": 77.3178,
+      "fuel_level": 88,
+      "status": "available",
+      "vehicle_type": "truck",
+      "location_name": "Faridabad Sector 15",
+      "capacity_tons": 7.5,
+      "mileage_kmpl": 10,
+      "last_service_date": "2024-03-01",
+      "contact": "+91-9876543208"
+    },
+    {
+      "vehicle_id": "V109",
+      "driver_name": "Sunita Devi",
+      "latitude": 28.7496,
+      "longitude": 77.1185,
+      "fuel_level": 70,
+      "status": "on_delivery",
+      "vehicle_type": "van",
+      "location_name": "Shalimar Bagh, New Delhi",
+      "capacity_tons": 2.2,
+      "mileage_kmpl": 17,
+      "last_service_date": "2024-03-10",
+      "contact": "+91-9876543209"
+    },
+    {
+      "vehicle_id": "V110",
+      "driver_name": "Vikram Joshi",
+      "latitude": 28.5274,
+      "longitude": 77.1800,
+      "fuel_level": 95,
+      "status": "available",
+      "vehicle_type": "mini_truck",
+      "location_name": "Dwarka Sector 10, New Delhi",
+      "capacity_tons": 3.5,
+      "mileage_kmpl": 14,
+      "last_service_date": "2024-03-25",
+      "contact": "+91-9876543210"
+    },
+    {
+      "vehicle_id": "V111",
+      "driver_name": "Pooja Mishra",
+      "latitude": 28.6862,
+      "longitude": 77.2216,
+      "fuel_level": 65,
+      "status": "available",
+      "vehicle_type": "van",
+      "location_name": "Pitampura, New Delhi",
+      "capacity_tons": 2.0,
+      "mileage_kmpl": 18,
+      "last_service_date": "2024-03-18",
+      "contact": "+91-9876543211"
+    },
+    {
+      "vehicle_id": "V112",
+      "driver_name": "Arun Tiwari",
+      "latitude": 28.6129,
+      "longitude": 77.3540,
+      "fuel_level": 40,
+      "status": "on_delivery",
+      "vehicle_type": "truck",
+      "location_name": "Mayur Vihar, New Delhi",
+      "capacity_tons": 5.5,
+      "mileage_kmpl": 11,
+      "last_service_date": "2024-02-28",
+      "contact": "+91-9876543212"
+    }
+  ],
+  "destinations": {
+    "noida_sector_18": {
+      "name": "Noida Sector 18",
+      "latitude": 28.5706,
+      "longitude": 77.3219
+    },
+    "gurugram_cyber_city": {
+      "name": "Gurugram Cyber City",
+      "latitude": 28.4947,
+      "longitude": 77.0890
+    },
+    "faridabad_nhpc": {
+      "name": "Faridabad NHPC",
+      "latitude": 28.3670,
+      "longitude": 77.3200
+    },
+    "ghaziabad_raj_nagar": {
+      "name": "Ghaziabad Raj Nagar",
+      "latitude": 28.6711,
+      "longitude": 77.4340
+    },
+    "delhi_airport": {
+      "name": "Indira Gandhi International Airport",
+      "latitude": 28.5562,
+      "longitude": 77.1000
+    }
+  }
+}
