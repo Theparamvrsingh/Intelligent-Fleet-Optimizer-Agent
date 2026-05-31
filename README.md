@@ -1,16 +1,10 @@
-# 🚛 Intelligent Fleet Operations Agent
+# Intelligent Fleet Operations Agent
 
-> **Interview-Ready Agentic AI Project** — LangGraph + Gemini + HERE APIs + Streamlit
-
-[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://python.org)
-[![LangGraph](https://img.shields.io/badge/LangGraph-0.0.55-green)](https://langchain-ai.github.io/langgraph/)
-[![Gemini](https://img.shields.io/badge/Google-Gemini_1.5_Flash-orange)](https://ai.google.dev/)
-[![HERE](https://img.shields.io/badge/HERE-Routing_API_v8-cyan)](https://developer.here.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.32-red)](https://streamlit.io)
+An enterprise-grade, agentic AI logistics orchestration system built on LangGraph, Google Gemini, and OpenStreetMap (OSRM) services. The system features a custom-built dynamic routing optimization engine and an interactive Streamlit console to coordinate fleet logistics, manage real-world road congestion delays, and automate vehicle dispatching.
 
 ---
 
-## 🏗️ Architecture Diagram
+## Technical Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -20,7 +14,7 @@
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              LANGGRAPH AGENT (Single-Agent)                  │
+│              LANGGRAPH AGENT (Stateful Execution)            │
 │                                                             │
 │  [understand_intent] → [fetch_fleet] → [call_routing]       │
 │        → [analyze_traffic] → [optimize_fleet]               │
@@ -31,227 +25,197 @@
            │                                    │
            ▼                                    ▼
 ┌──────────────────┐                ┌───────────────────────┐
-│  fleet_data.json │                │   HERE Routing API v8  │
+│  fleet_data.json │                │   OSRM Routing API    │
 │  (12 vehicles,   │                │   • Distance & ETA     │
 │   Delhi NCR)     │                │   • Traffic delays     │
-└──────────────────┘                │   • Congestion levels  │
-                                    └───────────────────────┘
+│                  │                │   • Congestion levels  │
+└──────────────────┘                └───────────────────────┘
                                                 │
                                                 ▼
                                     ┌───────────────────────┐
-                                    │  Google Gemini 1.5     │
-                                    │  Flash (Synthesis)     │
+                                    │   Google Gemini 1.5   │
+                                    │   Flash (Synthesis)   │
                                     └───────────────────────┘
 ```
 
 ---
 
-## 🔄 Agent Workflow Diagram
+## Agent Workflow Execution Flow
 
 ```
 User Query
     │
     ▼
 ┌─────────────────────┐
-│  Step 1: Intent     │  Classify: eta_lookup / optimization /
+│  Step 1: Intent     │  Classify: eta_lookup / proximity_lookup /
 │  Understanding      │  traffic_analysis / fleet_lookup
 └────────┬────────────┘
          │
          ▼
 ┌─────────────────────┐
 │  Step 2: Fleet      │  Tool: fleet_lookup_tool
-│  Data Fetch         │  Reads: fleet_data.json (ground truth)
+│  Data Fetch         │  Reads: fleet_data.json (ground truth dataset)
 └────────┬────────────┘
          │
          ▼
 ┌─────────────────────┐
-│  Step 3: HERE       │  Tool: here_routing_tool
-│  Routing API        │  Returns: distance, ETA, polyline
+│  Step 3: OSRM       │  Tool: osrm_routing_tool
+│  Routing API        │  Returns: Real-road distance, ETA, polyline
 └────────┬────────────┘
          │
          ▼
 ┌─────────────────────┐
 │  Step 4: Traffic    │  Tool: traffic_analysis_tool
-│  Analysis           │  Returns: congestion, hotspots, advice
+│  Analysis           │  Returns: Congestion thresholds, highway hotspots
 └────────┬────────────┘
          │
          ▼
 ┌─────────────────────┐
 │  Step 5: Fleet      │  Tool: fleet_optimization_tool
-│  Optimization       │  Scores: ETA(35) + Fuel(30) + Cap(20) + Traffic(15)
+│  Optimization       │  Processes routing matrix and filters by proximity
 └────────┬────────────┘
          │
          ▼
 ┌─────────────────────┐
-│  Step 6: Gemini     │  Synthesizes ALL tool outputs into
-│  Response Gen       │  natural language recommendation
+│  Step 6: Gemini     │  Synthesizes tool outputs into structured
+│  Response Gen       │  dispatch recommendations and reasoning
 └────────┬────────────┘
          │
          ▼
-  Final Answer + UI Cards
+   Final Answer + UI Map Rendering
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Technology Stack
 
-| Technology | Purpose | Why Chosen |
-|-----------|---------|-----------|
-| **LangGraph** | Agent orchestration | Stateful multi-step reasoning with observable nodes |
-| **Google Gemini 1.5 Flash** | Language model | Fast, capable, multimodal, free tier available |
-| **HERE Routing API v8** | Route & ETA | Enterprise-grade, truck-specific routing, traffic-aware |
-| **Streamlit** | Frontend | Rapid enterprise dashboards with Python only |
-| **Folium** | Map visualization | Interactive Leaflet maps inside Streamlit |
-| **Python** | Core language | Ecosystem for AI/ML, data, and APIs |
+| Component | Technology | Purpose | Implementation Context |
+|-----------|------------|---------|------------------------|
+| **Agent Orchestration** | LangGraph | Stateful multi-step reasoning | Graph-based control flow with node-level state modification |
+| **Generative Model** | Google Gemini 1.5 Flash | Natural language synthesis | Reasoning, semantic intent extraction, response synthesis |
+| **Routing Engine** | OSRM (OpenStreetMap) | Real-road routing and distance | Live road network ETAs, travel distances, and shape polylines |
+| **Geocoding Engine** | Nominatim (OpenStreetMap) | Dynamic address geocoding | High-accuracy coordinate lookup restricted to Indian boundaries |
+| **Web UI Console** | Streamlit | Frontend interface dashboard | Sleek dark-mode console displaying mapping canvas and log telemetry |
+| **Mapping Engine** | Folium | Interactive Leaflet canvas | Real-time map layers, color-coded road paths, and custom pins |
 
 ---
 
-## 📁 Project Structure
+## Repository Structure
 
 ```
 intelligent-fleet-agent/
 │
-├── app.py                      # Streamlit enterprise dashboard (main entry)
-├── fleet_data.json             # 12-vehicle Delhi NCR dataset
+├── app.py                      # Main Streamlit dashboard application
+├── fleet_data.json             # 12-vehicle Delhi NCR fleet database
 ├── requirements.txt            # Python dependencies
-├── .env                        # API keys (not committed)
-├── README.md                   # This file
+├── .env                        # Local credentials configuration (git-ignored)
+├── README.md                   # Project documentation
+├── deployment_guide.md         # Deployment and cloud hosting instructions
 │
 ├── agents/
 │   ├── __init__.py
-│   └── fleet_agent.py          # LangGraph 6-node agent pipeline
+│   └── fleet_agent.py          # LangGraph state workflow definition
 │
 ├── tools/
 │   ├── __init__.py
-│   ├── fleet_lookup.py         # Tool 1: Fleet data reader
-│   ├── here_routing.py         # Tool 2: HERE Routing API v8
-│   ├── fleet_optimizer.py      # Tool 3: Multi-criteria optimizer
-│   └── traffic_analysis.py     # Tool 4: Traffic analysis & hotspots
+│   ├── fleet_lookup.py         # Retrieves static vehicle metrics
+│   ├── here_routing.py         # Coordinates OSRM and Nominatim lookups
+│   ├── fleet_optimizer.py      # Executes multi-criteria ranking
+│   └── traffic_analysis.py     # Models real-time traffic delay metrics
 │
 ├── services/
 │   ├── __init__.py
-│   └── map_service.py          # Folium map generation
+│   └── map_service.py          # Generates Folium maps with road polylines
 │
 └── utils/
     ├── __init__.py
-    └── ui_helpers.py           # HTML card generators for Streamlit
+    └── ui_helpers.py           # Generates HTML component styling cards
 ```
 
 ---
 
-## 🚀 Setup Instructions
+## Installation and Setup
 
-### 1. Clone & Navigate
+### 1. Clone the Repository
 ```bash
-cd "Intelligent Fleet Operations Agent"
+git clone https://github.com/Theparamvrsingh/Intelligent-Fleet-Optimizer-Agent.git
+cd Intelligent-Fleet-Optimizer-Agent
 ```
 
-### 2. Create Virtual Environment
+### 2. Configure a Virtual Environment
 ```bash
 python3 -m venv venv
-source venv/bin/activate      # Mac/Linux
-# or
-venv\Scripts\activate         # Windows
+source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Install Required Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure API Keys
-Edit `.env` file:
+### 4. Set Environment Variables
+Create a `.env` file in the root directory:
 ```env
 GOOGLE_GEMINI_API_KEY=your_gemini_api_key_here
-HERE_API_KEY=your_here_api_key_here
 ```
 
-### 5. Run the App
+### 5. Launch the Dashboard
 ```bash
 streamlit run app.py
 ```
 
 ---
 
-## 🔑 HERE API Setup
+## Model API Configuration
 
-1. Go to [developer.here.com](https://developer.here.com)
-2. Create a free account (250,000 free requests/month)
-3. Go to **Projects → Create Project**
-4. Generate an **API Key** (REST)
-5. Paste it in `.env` as `HERE_API_KEY`
-
-> **Without HERE API key**: The app runs with a synthetic routing fallback using Haversine distance + realistic traffic multipliers. All features work — just with estimated data.
+### Gemini API Integration
+1. Obtain an API Key from the Google AI Studio console: [aistudio.google.com](https://aistudio.google.com)
+2. Assign the key inside your `.env` configuration as `GOOGLE_GEMINI_API_KEY`.
+3. In the event of API outages or missing credentials, the framework automatically engages a rule-based synthesis fallback to maintain system availability.
 
 ---
 
-## 🔑 Gemini API Setup
+## Sample Operations Console Queries
 
-1. Go to [aistudio.google.com](https://aistudio.google.com)
-2. Click **Get API Key → Create API Key**
-3. Paste it in `.env` as `GOOGLE_GEMINI_API_KEY`
-
-> **Without Gemini API key**: The agent falls back to a rule-based response synthesizer. All tools still run normally.
-
----
-
-## 💡 Sample Queries
+The conversational dispatcher handles complex natural language queries, including:
 
 ```
 "Which vehicle should deliver Order 123?"
 "Which vehicle can reach Noida Sector 18 fastest?"
-"What is the ETA of Vehicle V101 to the airport?"
-"Which route avoids traffic to Gurugram?"
+"What is the ETA of Vehicle V101 to Chandigarh?"
 "Recommend the best vehicle for a 4-ton delivery to Faridabad"
-"Where is V104 right now?"
-"Show fleet status"
+"Determine the distance and traffic from Bennett University to Chandigarh"
+"Show status logs for V104"
+"Display current fleet status dashboard"
 ```
 
 ---
 
-## 🎯 Interview Talking Points
+## Core System Architectural Principles
 
-### Why Agentic AI?
-> A traditional rule-based system would pick the nearest vehicle blindly. The agent **reasons** about fuel, traffic, vehicle capacity, and route congestion simultaneously — synthesizing them into an optimal decision. This mirrors how a real fleet manager thinks.
+### Stateful Graph Reasoning
+Rule-based systems typically select resources based on simple Euclidean straight-line distance. This agent operates on a stateful graph where routing constraints, live capacity thresholds, actual road network travel times, and congestion multipliers are processed sequentially, generating optimal dispatch recommendations.
 
-### Why LangGraph?
-> LangGraph provides **stateful, observable, multi-step reasoning** as a directed graph. Each node is a discrete reasoning step with its own inputs/outputs. Unlike a single LLM call, the agent can call multiple tools in sequence, maintain state between steps, and produce explainable decisions.
+### Safe Declarative Tool Binding
+The agent relies on restricted tool calling to prevent hallucination of fleet parameters. By enforcing declarative tool inputs, the core model is barred from inventing non-existent vehicle IDs, coordinates, or fuel logs. The generative model acts solely as an analytical coordinator rather than a data generator.
 
-### Why HERE APIs?
-> HERE provides **enterprise-grade routing** with real-time traffic, truck-specific restrictions (weight, height limits), and historical traffic patterns. This is the industry standard used by DHL, FedEx, and logistics companies worldwide.
+### Unified Proximity Dispatch
+Dispatch queries seeking the "closest" or "fastest" assets are prioritized using pure OSRM road travel times and path distances. This approach resolves routing errors where global scores outranked physically proximal assets.
 
-### Why Tool Calling?
-> Tool calling prevents **hallucination** of fleet data. Instead of the LLM making up vehicle IDs and ETAs, it is *forced* to call real tools that read from the JSON database and the HERE API. The LLM only synthesizes — it never fabricates data.
-
----
-
-## 🔮 Future Scope
-
-| Feature | Description |
-|---------|-------------|
-| **Multi-Agent Architecture** | Separate agents for routing, scheduling, and driver management coordinating via LangGraph's multi-agent framework |
-| **Real GPS Integration** | Replace `fleet_data.json` with live GPS telemetry via MQTT/WebSocket from actual vehicle devices |
-| **Live Vehicle Telemetry** | Engine health, tire pressure, fuel consumption streaming from IoT sensors |
-| **Predictive Fleet Analytics** | ML models predicting maintenance needs, fuel consumption, and delivery delays before they occur |
-| **Autonomous Logistics Control Center** | Fully autonomous agent that dispatches, reroutes, and reschedules without human intervention |
-| **Voice Interface** | Natural language voice queries using Whisper + TTS for hands-free fleet management |
-| **Multi-City Operations** | Scale from Delhi NCR to pan-India fleet management with city-specific traffic models |
+### Point-to-Point Custom Routing
+The agent parses custom routing queries between arbitrary points (e.g. Bennett to Chandigarh) directly, setting custom map frames, calculating high-accuracy distance segments, and applying live time-of-day traffic congestion models without coupling calculations to the fleet database.
 
 ---
 
-## 📊 Agent Observability
+## Agent Observability Telemetry
 
-The UI displays a real-time **Agent Thinking Process** panel showing:
+The operations dashboard exposes a live telemetry drawer detailing every logical hop of the model's reasoning chain:
 
-- ✅ Step 1: Understanding User Intent
-- ✅ Step 2: Fetching Fleet Data  
-- ✅ Step 3: Calling HERE Routing API
-- ✅ Step 4: Traffic Analysis
-- ✅ Step 5: Fleet Optimization
-- ✅ Step 6: Generating Recommendation
+- Step 1: Parsing user query intent and extracting target entities.
+- Step 2: Querying fleet databases to identify eligible vehicles.
+- Step 3: Resolving road geometry paths and ETAs via OSRM.
+- Step 4: Assessing structural congestion and computing delay metrics.
+- Step 5: Invoking multi-criteria search algorithms to score candidate assets.
+- Step 6: Compiling execution parameters and rendering final outputs.
 
-Each step shows which tool was called and what it returned — full **end-to-end observability** of the agent's reasoning chain.
-
----
-
-*Built for interview demonstration of Agentic AI, Tool Calling, and Enterprise Logistics Systems.*
+Each reasoning node provides full observability of input variables, execution durations, and returned payloads.
